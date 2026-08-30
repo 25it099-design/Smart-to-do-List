@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TaskFlow - Smart To-Do Manager</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-container">
+
+
+    <!-- ======================================
+         SIDEBAR
+    ======================================= -->
+
+    <aside class="sidebar">
+
+        <div>
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    ✓
+                </div>
+
+                <div class="logo-text">
+
+                    <h2>TaskFlow</h2>
+
+                    <span>
+                        Smart Manager
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="navigation"
+                aria-label="Main navigation"
+            >
+
+                <button
+                    type="button"
+                    class="nav-item active"
+                    id="dashboardNav"
+                >
+
+                    <span aria-hidden="true">
+                        📊
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    id="tasksNav"
+                >
+
+                    <span aria-hidden="true">
+                        📋
+                    </span>
+
+                    <span>
+                        My Tasks
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    id="importantNav"
+                >
+
+                    <span aria-hidden="true">
+                        ⭐
+                    </span>
+
+                    <span>
+                        Important
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item"
+                    id="calendarNav"
+                >
+
+                    <span aria-hidden="true">
+                        📅
+                    </span>
+
+                    <span>
+                        Calendar
+                    </span>
+
+                </button>
+
+            </nav>
+
+        </div>
+
+
+        <!-- THEME -->
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                class="nav-item"
+                id="themeBtn"
+            >
+
+                <span
+                    aria-hidden="true"
+                    id="themeIcon"
+                >
+                    🌙
+                </span>
+
+                <span id="themeText">
+                    Dark Mode
+                </span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ======================================
+         MAIN CONTENT
+    ======================================= -->
+
+    <main class="main-content">
+
+
+        <!-- ==================================
+             DASHBOARD VIEW
+        =================================== -->
+
+        <section id="dashboardView">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="welcome-text">
+                        Welcome back 👋
+                    </p>
+
+                    <h1>
+                        Today's Dashboard
+                    </h1>
+
+                    <p
+                        class="date-text"
+                        id="currentDate"
+                    >
+                    </p>
+
+                </div>
+
+
+                <div class="profile">
+
+                    <div
+                        class="profile-avatar"
+                        aria-label="User profile"
+                    >
+                        S
+                    </div>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- ==================================
+                 STATISTICS
+            =================================== -->
+
+            <section
+                class="stats-grid"
+                aria-label="Task statistics"
+            >
+
+
+                <div class="stat-card blue">
+
+                    <div class="stat-icon">
+                        📋
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Total Tasks
+                        </p>
+
+                        <h2 id="totalTasks">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card orange">
+
+                    <div class="stat-icon">
+                        ⏳
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Pending
+                        </p>
+
+                        <h2 id="pendingTasks">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card green">
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Completed
+                        </p>
+
+                        <h2 id="completedTasks">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card purple">
+
+                    <div class="stat-icon">
+                        🎯
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Productivity
+                        </p>
+
+                        <h2 id="productivity">
+                            0%
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================
+                 DASHBOARD GRID
+            =================================== -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- TASK PANEL -->
+
+                <section class="tasks-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                My Tasks
+                            </h2>
+
+                            <p>
+                                Manage your daily activities
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="add-main-btn"
+                            id="addTaskBtn"
+                        >
+                            + Add Task
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- ADD TASK FORM -->
+
+                    <div
+                        class="add-task-box"
+                        id="addTaskBox"
+                    >
+
+                        <label
+                            for="taskInput"
+                            class="sr-only"
+                        >
+                            Task name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="taskInput"
+                            placeholder="What needs to be done?"
+                            autocomplete="off"
+                        >
+
+
+                        <div class="task-options">
+
+
+                            <div class="input-group">
+
+                                <label
+                                    for="priorityInput"
+                                    class="sr-only"
+                                >
+                                    Task priority
+                                </label>
+
+                                <select
+                                    id="priorityInput"
+                                >
+
+                                    <option value="low">
+                                        🟢 Low Priority
+                                    </option>
+
+                                    <option
+                                        value="medium"
+                                        selected
+                                    >
+                                        🟡 Medium Priority
+                                    </option>
+
+                                    <option value="high">
+                                        🔴 High Priority
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="input-group">
+
+                                <label
+                                    for="dateInput"
+                                    class="sr-only"
+                                >
+                                    Task due date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="dateInput"
+                                >
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="saveTaskBtn"
+                            >
+                                Add
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SEARCH -->
+
+                    <div class="search-box">
+
+                        <span aria-hidden="true">
+                            🔍
+                        </span>
+
+                        <label
+                            for="searchInput"
+                            class="sr-only"
+                        >
+                            Search tasks
+                        </label>
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Search your tasks..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+
+                    <!-- FILTERS -->
+
+                    <div
+                        class="filters"
+                        role="group"
+                        aria-label="Task filters"
+                    >
+
+                        <button
+                            type="button"
+                            class="filter-btn active"
+                            data-filter="all"
+                        >
+                            All
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-btn"
+                            data-filter="pending"
+                        >
+                            Pending
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-btn"
+                            data-filter="completed"
+                        >
+                            Completed
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- TASK LIST -->
+
+                    <ul id="taskList">
+                    </ul>
+
+
+                </section>
+
+
+
+                <!-- RIGHT SIDE -->
+
+                <aside class="productivity-panel">
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="progress-card">
+
+                        <div class="card-title">
+
+                            <div>
+
+                                <h3>
+                                    Today's Progress
+                                </h3>
+
+                                <p>
+                                    Keep going! 🚀
+                                </p>
+
+                            </div>
+
+
+                            <span id="progressPercent">
+                                0%
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="progress-bar"
+                            role="progressbar"
+                            aria-label="Task completion progress"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="0"
+                            id="progressBar"
+                        >
+
+                            <div
+                                class="progress-fill"
+                                id="progressFill"
+                            >
+                            </div>
+
+                        </div>
+
+
+                        <p
+                            class="progress-message"
+                            id="progressMessage"
+                        >
+                            Let's complete your first task!
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- QUICK OVERVIEW -->
+
+                    <div class="quick-card">
+
+                        <h3>
+                            Quick Overview
+                        </h3>
+
+
+                        <div class="overview-item">
+
+                            <span>
+                                🔥 High Priority
+                            </span>
+
+                            <strong id="highPriorityCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="overview-item">
+
+                            <span>
+                                📅 Due Today
+                            </span>
+
+                            <strong id="todayCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="overview-item">
+
+                            <span>
+                                ⭐ Completion Rate
+                            </span>
+
+                            <strong id="completionRate">
+                                0%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MOTIVATION -->
+
+                    <div class="motivation-card">
+
+                        <div class="motivation-icon">
+                            💡
+                        </div>
+
+                        <h3>
+                            Stay Focused!
+                        </h3>
+
+                        <p>
+                            Small progress every day
+                            leads to big results.
+                        </p>
+
+                    </div>
+
+
+                </aside>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- ======================================
+             CALENDAR VIEW
+        ======================================= -->
+
+        <section
+            class="calendar-view"
+            id="calendarView"
+        >
+
+
+            <!-- CALENDAR HEADER -->
+
+            <div class="calendar-header">
+
+                <div>
+
+                    <p class="welcome-text">
+                        Planner
+                    </p>
+
+                    <h2>
+                        Task Calendar
+                    </h2>
+
+                    <p class="date-text">
+                        Organize your tasks by date
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="back-dashboard-btn"
+                    id="backDashboardBtn"
+                >
+                    ← Dashboard
+                </button>
+
+            </div>
+
+
+
+            <!-- CALENDAR -->
+
+            <div class="calendar-card">
+
+
+                <div class="calendar-navigation">
+
+                    <button
+                        type="button"
+                        id="previousMonth"
+                        class="calendar-nav-btn"
+                        aria-label="Previous month"
+                    >
+                        ←
+                    </button>
+
+
+                    <h2 id="calendarMonth">
+                        August 2026
+                    </h2>
+
+
+                    <button
+                        type="button"
+                        id="nextMonth"
+                        class="calendar-nav-btn"
+                        aria-label="Next month"
+                    >
+                        →
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="today-btn"
+                    id="todayBtn"
+                >
+                    Today
+                </button>
+
+
+
+                <!-- WEEK DAYS -->
+
+                <div class="calendar-weekdays">
+
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+
+                </div>
+
+
+
+                <!-- DAYS -->
+
+                <div
+                    class="calendar-days"
+                    id="calendarDays"
+                >
+                </div>
+
+            </div>
+
+
+
+            <!-- SELECTED DATE TASKS -->
+
+            <div class="selected-date-card">
+
+
+                <div class="selected-date-header">
+
+                    <div>
+
+                        <h3 id="selectedDateTitle">
+                            Select a date
+                        </h3>
+
+                        <p>
+                            Tasks scheduled for this date
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        id="selectedTaskCount"
+                        class="task-count-badge"
+                    >
+                        0 tasks
+                    </span>
+
+                </div>
+
+
+                <div id="calendarTaskList">
+
+                    <div class="calendar-empty">
+                        📅 Select a date to see your tasks.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
